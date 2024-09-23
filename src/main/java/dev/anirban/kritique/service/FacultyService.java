@@ -30,6 +30,10 @@ public class FacultyService {
                 .orElseThrow(() -> new FacultyNotFound(id));
     }
 
+    public List<Faculty> findFacultyByName(String name) {
+        return facultyRepo.findByNameContaining(name);
+    }
+
     public void deleteFacultyById(Integer id) {
         if (!facultyRepo.existsById(id))
             throw new FacultyNotFound(id);

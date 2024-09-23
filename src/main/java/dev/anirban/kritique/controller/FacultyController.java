@@ -26,11 +26,13 @@ public class FacultyController {
     }
 
     @GetMapping("/faculties")
-    public CustomResponse<List<Faculty>> findAllFacultiesHandler() {
+    public CustomResponse<List<Faculty>> findAllFacultiesHandler(
+            @RequestParam(value = "name", required = false) String name
+    ) {
         return new CustomResponse<>(
                 HttpStatus.OK.value(),
-                "Faculties fetched successfully",
-                service.findAllFaculty()
+                "Faculty Fetched Successfully",
+                (name != null && !name.isEmpty()) ? service.findFacultyByName(name) : service.findAllFaculty()
         );
     }
 
