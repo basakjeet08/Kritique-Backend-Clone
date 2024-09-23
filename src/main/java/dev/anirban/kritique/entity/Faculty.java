@@ -23,7 +23,6 @@ public class Faculty {
     private String experience;
     private String photoUrl;
     private Double avgRating;
-    private Integer totalRatings;
 
     @OneToMany(
             mappedBy = "createdFor",
@@ -38,5 +37,10 @@ public class Faculty {
             reviewList.add(review);
             review.setCreatedFor(this);
         }
+    }
+
+    public void removeReview(Review review) {
+        review.setCreatedFor(null);
+        reviewList.remove(review);
     }
 }

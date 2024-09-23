@@ -42,4 +42,9 @@ public class User {
             review.setCreatedBy(this);
         }
     }
+
+    public void removeReview(Review review) {
+        review.setCreatedBy(null);
+        reviewsGiven.remove(review);
+    }
 }
