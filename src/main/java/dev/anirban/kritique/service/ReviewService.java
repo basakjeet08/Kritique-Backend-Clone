@@ -71,6 +71,10 @@ public class ReviewService {
                 .orElseThrow(() -> new ReviewNotFound(id));
     }
 
+    public List<Review> findReviewByUserId(Integer userId) {
+        return reviewRepo.findReviewByUserId(userId);
+    }
+
     public void deleteReview(Integer id) {
 
         // Fetching the review to be deleted

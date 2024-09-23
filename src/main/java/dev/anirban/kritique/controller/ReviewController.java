@@ -43,6 +43,16 @@ public class ReviewController {
         );
     }
 
+    @GetMapping("/reviews/{id}/history")
+    public CustomResponse<List<Review>> findReviewByUserIdHandler(@PathVariable Integer id) {
+        return new CustomResponse<>(
+                HttpStatus.OK.value(),
+                "Reviews fetched successfully",
+                service.findReviewByUserId(id)
+        );
+    }
+
+
     @DeleteMapping("/reviews/{id}")
     public CustomResponse<Void> deleteReviewHandler(@PathVariable Integer id) {
         service.deleteReview(id);
