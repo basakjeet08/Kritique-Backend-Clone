@@ -21,6 +21,7 @@ public class User {
     @GeneratedValue
     private Integer id;
     private String name;
+    private String password;
     private String email;
     private String photoUrl;
 
@@ -34,4 +35,11 @@ public class User {
             cascade = CascadeType.ALL
     )
     private List<Review> reviewsGiven;
+
+    public void addReview(Review review) {
+        if (!reviewsGiven.contains(review)) {
+            reviewsGiven.add(review);
+            review.setCreatedBy(this);
+        }
+    }
 }

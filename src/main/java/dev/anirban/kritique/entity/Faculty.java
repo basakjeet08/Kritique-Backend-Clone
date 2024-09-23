@@ -32,4 +32,11 @@ public class Faculty {
             cascade = CascadeType.ALL
     )
     private List<Review> reviewList;
+
+    public void addReview(Review review) {
+        if (!reviewList.contains(review)) {
+            reviewList.add(review);
+            review.setCreatedFor(this);
+        }
+    }
 }
