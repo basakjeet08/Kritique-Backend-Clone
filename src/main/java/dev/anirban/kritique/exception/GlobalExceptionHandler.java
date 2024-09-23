@@ -32,4 +32,15 @@ public class GlobalExceptionHandler {
 
         return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
     }
+
+    @ExceptionHandler(FacultyNotFound.class)
+    public ResponseEntity<CustomResponse<Object>> handleFacultyNotFoundException(FacultyNotFound exception) {
+        CustomResponse<Object> response = new CustomResponse<>(
+                HttpStatus.NOT_FOUND.value(),
+                exception.getMessage(),
+                null
+        );
+
+        return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
+    }
 }
