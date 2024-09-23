@@ -75,6 +75,10 @@ public class ReviewService {
         return reviewRepo.findReviewByUserId(userId);
     }
 
+    public List<Review> findReviewByFacultyId(Integer facultyId) {
+        return reviewRepo.findReviewByFacultyId(facultyId);
+    }
+
     public void deleteReview(Integer id) {
 
         // Fetching the review to be deleted

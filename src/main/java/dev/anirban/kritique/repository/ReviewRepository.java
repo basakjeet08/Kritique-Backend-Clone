@@ -11,4 +11,7 @@ public interface ReviewRepository extends JpaRepository<Review, Integer> {
 
     @Query("Select r from Review r where r.createdBy.id = :userId")
     List<Review> findReviewByUserId(@Param("userId") Integer userId);
+
+    @Query("Select r from Review r where r.createdFor.id = :facultyId")
+    List<Review> findReviewByFacultyId(@Param("facultyId") Integer facultyId);
 }
