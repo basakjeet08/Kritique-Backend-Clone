@@ -1,5 +1,6 @@
 package dev.anirban.kritique.controller;
 
+import dev.anirban.kritique.constants.UrlConstants;
 import dev.anirban.kritique.dto.CustomResponse;
 import dev.anirban.kritique.dto.ReviewPostRequest;
 import dev.anirban.kritique.entity.Review;
@@ -16,7 +17,7 @@ public class ReviewController {
 
     private final ReviewService service;
 
-    @PostMapping("/reviews")
+    @PostMapping(UrlConstants.CREATE_REVIEWS)
     public CustomResponse<Review> createReviewHandler(@RequestBody ReviewPostRequest review) {
         return new CustomResponse<>(
                 HttpStatus.CREATED.value(),
@@ -25,7 +26,7 @@ public class ReviewController {
         );
     }
 
-    @GetMapping("/reviews")
+    @GetMapping(UrlConstants.FIND_ALL_REVIEWS)
     public CustomResponse<List<Review>> findAllReviewsHandler() {
         return new CustomResponse<>(
                 HttpStatus.OK.value(),
@@ -34,7 +35,7 @@ public class ReviewController {
         );
     }
 
-    @GetMapping("/reviews/{id}")
+    @GetMapping(UrlConstants.FIND_REVIEW_BY_ID)
     public CustomResponse<Review> findReviewById(@PathVariable Integer id) {
         return new CustomResponse<>(
                 HttpStatus.OK.value(),
@@ -43,26 +44,26 @@ public class ReviewController {
         );
     }
 
-    @GetMapping("/reviews/{id}/history")
-    public CustomResponse<List<Review>> findReviewByUserIdHandler(@PathVariable Integer id) {
+    @GetMapping(UrlConstants.FIND_REVIEW_BY_USER_ID)
+    public CustomResponse<List<Review>> findReviewByUserIdHandler(@PathVariable Integer userId) {
         return new CustomResponse<>(
                 HttpStatus.OK.value(),
                 "Reviews fetched successfully",
-                service.findReviewByUserId(id)
+                service.findReviewByUserId(userId)
         );
     }
 
-    @GetMapping("/reviews/faculty/{id}")
-    public CustomResponse<List<Review>> findReviewByFacultyIdHandler(@PathVariable Integer id) {
+    @GetMapping(UrlConstants.FIND_REVIEW_BY_FACULTY_ID)
+    public CustomResponse<List<Review>> findReviewByFacultyIdHandler(@PathVariable Integer facultyId) {
         return new CustomResponse<>(
                 HttpStatus.OK.value(),
                 "Reviews Fetched Successfully",
-                service.findReviewByFacultyId(id)
+                service.findReviewByFacultyId(facultyId)
         );
     }
 
 
-    @DeleteMapping("/reviews/{id}")
+    @DeleteMapping(UrlConstants.DELETE_REVIEW)
     public CustomResponse<Void> deleteReviewHandler(@PathVariable Integer id) {
         service.deleteReview(id);
         return new CustomResponse<>(

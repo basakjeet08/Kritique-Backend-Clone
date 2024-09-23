@@ -1,6 +1,7 @@
 package dev.anirban.kritique.controller;
 
 
+import dev.anirban.kritique.constants.UrlConstants;
 import dev.anirban.kritique.dto.CustomResponse;
 import dev.anirban.kritique.entity.User;
 import dev.anirban.kritique.service.UserService;
@@ -16,7 +17,7 @@ public class UserController {
 
     private final UserService userService;
 
-    @PostMapping("/users")
+    @PostMapping(UrlConstants.CREATE_USER)
     public CustomResponse<User> createUserHandler(@RequestBody User user) {
         return new CustomResponse<>(
                 HttpStatus.CREATED.value(),
@@ -25,7 +26,7 @@ public class UserController {
         );
     }
 
-    @GetMapping("/users")
+    @GetMapping(UrlConstants.FIND_ALL_USERS)
     public CustomResponse<List<User>> findAllUserHandler() {
         return new CustomResponse<>(
                 HttpStatus.OK.value(),
@@ -34,7 +35,7 @@ public class UserController {
         );
     }
 
-    @GetMapping("/users/{id}")
+    @GetMapping(UrlConstants.FIND_USER_BY_ID)
     public CustomResponse<User> findUserByIdHandler(@PathVariable Integer id) {
         return new CustomResponse<>(
                 HttpStatus.OK.value(),
@@ -44,7 +45,7 @@ public class UserController {
     }
 
 
-    @DeleteMapping("/users/{id}")
+    @DeleteMapping(UrlConstants.DELETE_USER)
     public CustomResponse<Void> deleteUserHandler(@PathVariable Integer id) {
         userService.deleteUser(id);
         return new CustomResponse<>(

@@ -1,5 +1,6 @@
 package dev.anirban.kritique.controller;
 
+import dev.anirban.kritique.constants.UrlConstants;
 import dev.anirban.kritique.dto.CustomResponse;
 import dev.anirban.kritique.entity.Faculty;
 import dev.anirban.kritique.service.FacultyService;
@@ -16,7 +17,7 @@ public class FacultyController {
 
     private final FacultyService service;
 
-    @PostMapping("/faculties")
+    @PostMapping(UrlConstants.CREATE_FACULTY)
     public CustomResponse<Faculty> createFacultyHandler(@RequestBody Faculty faculty) {
         return new CustomResponse<>(
                 HttpStatus.CREATED.value(),
@@ -25,7 +26,7 @@ public class FacultyController {
         );
     }
 
-    @GetMapping("/faculties")
+    @GetMapping(UrlConstants.FIND_AND_FILTER_ALL_FACULTY)
     public CustomResponse<List<Faculty>> findAllFacultiesHandler(
             @RequestParam(value = "name", required = false) String name
     ) {
@@ -36,7 +37,7 @@ public class FacultyController {
         );
     }
 
-    @GetMapping("/faculties/{id}")
+    @GetMapping(UrlConstants.FIND_FACULTY_BY_ID)
     public CustomResponse<Faculty> findFacultyByIdHandler(@PathVariable Integer id) {
         return new CustomResponse<>(
                 HttpStatus.OK.value(),
@@ -45,7 +46,7 @@ public class FacultyController {
         );
     }
 
-    @DeleteMapping("/faculties/{id}")
+    @DeleteMapping(UrlConstants.DELETE_FACULTY)
     public CustomResponse<Void> deleteFacultyByIdHandler(@PathVariable Integer id) {
         service.deleteFacultyById(id);
         return new CustomResponse<>(
