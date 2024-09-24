@@ -6,6 +6,7 @@ import dev.anirban.kritique.entity.Faculty;
 import dev.anirban.kritique.exception.FacultyNotFound;
 import dev.anirban.kritique.repository.FacultyRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -24,9 +25,9 @@ public class FacultyService {
                 .toFacultyDTO();
     }
 
-    public List<FacultyDTO> findAllFaculty() {
+    public List<FacultyDTO> findAllFaculty(Pageable pageable) {
         return facultyRepo
-                .findAll()
+                .findAll(pageable)
                 .stream()
                 .map(Faculty::toFacultyDTO)
                 .toList();
@@ -39,10 +40,11 @@ public class FacultyService {
                 .orElseThrow(() -> new FacultyNotFound(id));
     }
 
-    public List<FacultyDTO> findFacultyByName(String name) {
+    public List<FacultyDTO> findFacultyByName(String name, Pageable pageable) {
         return facultyRepo
-                .findByNameContaining(name)
-                .stream().map(Faculty::toFacultyDTO)
+                .findByNameContaining(name, pageable)
+                .stream()
+                .map(Faculty::toFacultyDTO)
                 .toList();
     }
 

@@ -13,7 +13,8 @@ public class UrlConstants {
 
     // Faculty URLs
     public final static String CREATE_FACULTY = "/faculties";
-    public final static String FIND_AND_FILTER_ALL_FACULTY = "/faculties";
+    public final static String FIND_ALL_FACULTIES = "/faculties";
+    public final static String FIND_ALL_FACULTY_BY_NAME = "/faculties/";
     public final static String FIND_FACULTY_BY_ID = "/faculties/{id}";
     public final static String DELETE_FACULTY = "/faculties/{id}";
 

@@ -7,7 +7,9 @@ import dev.anirban.kritique.dto.common.EmptyObject;
 import dev.anirban.kritique.dto.faculty.FacultyDTO;
 import dev.anirban.kritique.service.FacultyService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 
 
@@ -26,14 +28,28 @@ public class FacultyController {
         );
     }
 
-    @GetMapping(UrlConstants.FIND_AND_FILTER_ALL_FACULTY)
+    @GetMapping(UrlConstants.FIND_ALL_FACULTIES)
     public CustomResponse<List<FacultyDTO>> findAllFacultiesHandler(
-            @RequestParam(value = "name", required = false) String name
+            @RequestParam(value = "page", required = false) Integer page,
+            @RequestParam(value = "limit", required = false) Integer limit
     ) {
         return new CustomResponse<>(
                 NetworkStatusCodes.SUCCESSFUL,
                 "Faculty Fetched Successfully",
-                (name != null && !name.isEmpty()) ? service.findFacultyByName(name) : service.findAllFaculty()
+                service.findAllFaculty(PageRequest.of(page, limit))
+        );
+    }
+
+    @GetMapping(UrlConstants.FIND_ALL_FACULTY_BY_NAME)
+    public CustomResponse<List<FacultyDTO>> findAllFacultiesByNameHandler(
+            @RequestParam(value = "name", required = false) String name,
+            @RequestParam(value = "page", required = false) Integer page,
+            @RequestParam(value = "limit", required = false) Integer limit
+    ) {
+        return new CustomResponse<>(
+                NetworkStatusCodes.SUCCESSFUL,
+                "Faculty Fetched Successfully",
+                service.findFacultyByName(name, PageRequest.of(page, limit))
         );
     }
 
