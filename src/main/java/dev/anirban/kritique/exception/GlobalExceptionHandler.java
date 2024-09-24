@@ -43,4 +43,37 @@ public class GlobalExceptionHandler {
 
         return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
     }
+
+    @ExceptionHandler(InvalidToken.class)
+    public ResponseEntity<CustomResponse<Object>> handleInvalidTokenException(InvalidToken exception) {
+        CustomResponse<Object> response = new CustomResponse<>(
+                HttpStatus.NOT_FOUND.value(),
+                exception.getMessage(),
+                null
+        );
+
+        return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(TokenNotFound.class)
+    public ResponseEntity<CustomResponse<Object>> handleInvalidTokenException(TokenNotFound exception) {
+        CustomResponse<Object> response = new CustomResponse<>(
+                HttpStatus.NOT_FOUND.value(),
+                exception.getMessage(),
+                null
+        );
+
+        return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(KIITEmailNotFound.class)
+    public ResponseEntity<CustomResponse<Object>> handleInvalidTokenException(KIITEmailNotFound exception) {
+        CustomResponse<Object> response = new CustomResponse<>(
+                HttpStatus.NOT_FOUND.value(),
+                exception.getMessage(),
+                null
+        );
+
+        return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
+    }
 }

@@ -4,7 +4,6 @@ public class UrlConstants {
 
     // Authentication URLs
     public final static String LOGIN_USER = "/auth/login";
-    public final static String AUTHENTICATE = "/auth/authenticate";
 
     // User URLs
     public final static String CREATE_USER = "/users";
