@@ -1,6 +1,7 @@
 package dev.anirban.kritique.entity;
 
 
+import dev.anirban.kritique.dto.faculty.FacultyDTO;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.UuidGenerator;
@@ -46,5 +47,17 @@ public class Faculty {
         review.setCreatedFor(null);
         reviewList.remove(review);
         totalRating--;
+    }
+
+    public FacultyDTO toFacultyDTO() {
+        return FacultyDTO
+                .builder()
+                .id(id)
+                .name(name)
+                .experience(experience)
+                .photoUrl(photoUrl)
+                .avgRating(avgRating)
+                .totalRating(totalRating)
+                .build();
     }
 }

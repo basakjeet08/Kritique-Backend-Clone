@@ -2,7 +2,7 @@ package dev.anirban.kritique.controller;
 
 import dev.anirban.kritique.constants.UrlConstants;
 import dev.anirban.kritique.dto.CustomResponse;
-import dev.anirban.kritique.entity.Faculty;
+import dev.anirban.kritique.dto.faculty.FacultyDTO;
 import dev.anirban.kritique.service.FacultyService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -18,7 +18,7 @@ public class FacultyController {
     private final FacultyService service;
 
     @PostMapping(UrlConstants.CREATE_FACULTY)
-    public CustomResponse<Faculty> createFacultyHandler(@RequestBody Faculty faculty) {
+    public CustomResponse<FacultyDTO> createFacultyHandler(@RequestBody FacultyDTO faculty) {
         return new CustomResponse<>(
                 HttpStatus.CREATED.value(),
                 "Faculty Created Successfully",
@@ -27,7 +27,7 @@ public class FacultyController {
     }
 
     @GetMapping(UrlConstants.FIND_AND_FILTER_ALL_FACULTY)
-    public CustomResponse<List<Faculty>> findAllFacultiesHandler(
+    public CustomResponse<List<FacultyDTO>> findAllFacultiesHandler(
             @RequestParam(value = "name", required = false) String name
     ) {
         return new CustomResponse<>(
@@ -38,7 +38,7 @@ public class FacultyController {
     }
 
     @GetMapping(UrlConstants.FIND_FACULTY_BY_ID)
-    public CustomResponse<Faculty> findFacultyByIdHandler(@PathVariable String id) {
+    public CustomResponse<FacultyDTO> findFacultyByIdHandler(@PathVariable String id) {
         return new CustomResponse<>(
                 HttpStatus.OK.value(),
                 "Faculty Details Fetched Successfully",

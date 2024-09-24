@@ -28,16 +28,4 @@ public class FacultyDTO {
                 .totalRating(totalRating)
                 .build();
     }
-
-    public FacultyDTO toFacultyDTO(Faculty faculty) {
-        return FacultyDTO
-                .builder()
-                .id(faculty.getId())
-                .name(faculty.getName())
-                .experience(faculty.getExperience())
-                .photoUrl(faculty.getPhotoUrl())
-                .avgRating(faculty.getAvgRating())
-                .totalRating(faculty.getTotalRating())
-                .build();
-    }
 }

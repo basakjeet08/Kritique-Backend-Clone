@@ -1,6 +1,7 @@
 package dev.anirban.kritique.service;
 
 
+import dev.anirban.kritique.dto.faculty.FacultyDTO;
 import dev.anirban.kritique.entity.Faculty;
 import dev.anirban.kritique.exception.FacultyNotFound;
 import dev.anirban.kritique.repository.FacultyRepository;
@@ -15,24 +16,34 @@ public class FacultyService {
 
     private final FacultyRepository facultyRepo;
 
-    public Faculty createFaculty(Faculty faculty) {
+    public FacultyDTO createFaculty(FacultyDTO faculty) {
         faculty.setAvgRating(0.0);
         faculty.setTotalRating(0);
-        return facultyRepo.save(faculty);
+        return facultyRepo
+                .save(faculty.toFaculty())
+                .toFacultyDTO();
     }
 
-    public List<Faculty> findAllFaculty() {
-        return facultyRepo.findAll();
+    public List<FacultyDTO> findAllFaculty() {
+        return facultyRepo
+                .findAll()
+                .stream()
+                .map(Faculty::toFacultyDTO)
+                .toList();
     }
 
-    public Faculty findFacultyById(String id) {
+    public FacultyDTO findFacultyById(String id) {
         return facultyRepo
                 .findById(id)
+                .map(Faculty::toFacultyDTO)
                 .orElseThrow(() -> new FacultyNotFound(id));
     }
 
-    public List<Faculty> findFacultyByName(String name) {
-        return facultyRepo.findByNameContaining(name);
+    public List<FacultyDTO> findFacultyByName(String name) {
+        return facultyRepo
+                .findByNameContaining(name)
+                .stream().map(Faculty::toFacultyDTO)
+                .toList();
     }
 
     public void deleteFacultyById(String id) {
