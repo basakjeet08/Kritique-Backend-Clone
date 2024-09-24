@@ -2,8 +2,9 @@ package dev.anirban.kritique.controller;
 
 import dev.anirban.kritique.constants.UrlConstants;
 import dev.anirban.kritique.dto.CustomResponse;
-import dev.anirban.kritique.dto.ReviewPostRequest;
-import dev.anirban.kritique.entity.Review;
+import dev.anirban.kritique.dto.review.PostReviewRequest;
+import dev.anirban.kritique.dto.review.ReviewDTO;
+import dev.anirban.kritique.dto.review.ReviewHistoryDTO;
 import dev.anirban.kritique.service.ReviewService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -18,7 +19,7 @@ public class ReviewController {
     private final ReviewService service;
 
     @PostMapping(UrlConstants.CREATE_REVIEWS)
-    public CustomResponse<Review> createReviewHandler(@RequestBody ReviewPostRequest review) {
+    public CustomResponse<ReviewDTO> createReviewHandler(@RequestBody PostReviewRequest review) {
         return new CustomResponse<>(
                 HttpStatus.CREATED.value(),
                 "Review Created successfully",
@@ -27,7 +28,7 @@ public class ReviewController {
     }
 
     @GetMapping(UrlConstants.FIND_ALL_REVIEWS)
-    public CustomResponse<List<Review>> findAllReviewsHandler() {
+    public CustomResponse<List<ReviewDTO>> findAllReviewsHandler() {
         return new CustomResponse<>(
                 HttpStatus.OK.value(),
                 "All reviews fetched successfully",
@@ -36,7 +37,7 @@ public class ReviewController {
     }
 
     @GetMapping(UrlConstants.FIND_REVIEW_BY_ID)
-    public CustomResponse<Review> findReviewById(@PathVariable String id) {
+    public CustomResponse<ReviewDTO> findReviewById(@PathVariable String id) {
         return new CustomResponse<>(
                 HttpStatus.OK.value(),
                 "Review fetched successfully",
@@ -45,7 +46,7 @@ public class ReviewController {
     }
 
     @GetMapping(UrlConstants.FIND_REVIEW_BY_USER_ID)
-    public CustomResponse<List<Review>> findReviewByUserIdHandler(@PathVariable String userId) {
+    public CustomResponse<List<ReviewHistoryDTO>> findReviewByUserIdHandler(@PathVariable String userId) {
         return new CustomResponse<>(
                 HttpStatus.OK.value(),
                 "Reviews fetched successfully",
@@ -54,7 +55,7 @@ public class ReviewController {
     }
 
     @GetMapping(UrlConstants.FIND_REVIEW_BY_FACULTY_ID)
-    public CustomResponse<List<Review>> findReviewByFacultyIdHandler(@PathVariable String facultyId) {
+    public CustomResponse<List<ReviewDTO>> findReviewByFacultyIdHandler(@PathVariable String facultyId) {
         return new CustomResponse<>(
                 HttpStatus.OK.value(),
                 "Reviews Fetched Successfully",

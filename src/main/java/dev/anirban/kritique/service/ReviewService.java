@@ -1,6 +1,8 @@
 package dev.anirban.kritique.service;
 
-import dev.anirban.kritique.dto.ReviewPostRequest;
+import dev.anirban.kritique.dto.review.PostReviewRequest;
+import dev.anirban.kritique.dto.review.ReviewDTO;
+import dev.anirban.kritique.dto.review.ReviewHistoryDTO;
 import dev.anirban.kritique.entity.Faculty;
 import dev.anirban.kritique.entity.Review;
 import dev.anirban.kritique.entity.User;
@@ -14,6 +16,7 @@ import dev.anirban.kritique.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 
@@ -25,17 +28,17 @@ public class ReviewService {
     private final FacultyRepository facultyRepo;
     private final ReviewRepository reviewRepo;
 
-    public Review createReview(ReviewPostRequest review) {
+    public ReviewDTO createReview(PostReviewRequest review) {
 
         // Fetching user who created the Review
         User user = userRepo
-                .findById(review.getCreatedById())
-                .orElseThrow(() -> new UserNotFound(review.getCreatedById()));
+                .findById(review.getCreatedBy())
+                .orElseThrow(() -> new UserNotFound(review.getCreatedBy()));
 
         // Fetching Faculty for which the review is created
         Faculty faculty = facultyRepo
-                .findById(review.getCreatedForId())
-                .orElseThrow(() -> new FacultyNotFound(review.getCreatedForId()));
+                .findById(review.getCreatedFor())
+                .orElseThrow(() -> new FacultyNotFound(review.getCreatedFor()));
 
         // Building the Review Object
         Review newReview = Review
@@ -43,6 +46,7 @@ public class ReviewService {
                 .rating(review.getRating())
                 .feedback(review.getFeedback())
                 .status(Validation.NOT_VALIDATED)
+                .createdAt(new Date())
                 .createdBy(user)
                 .createdFor(faculty)
                 .build();
@@ -58,25 +62,40 @@ public class ReviewService {
         faculty.addReview(newReview);
 
         // Storing the new Review created
-        return reviewRepo.save(newReview);
+        return reviewRepo
+                .save(newReview)
+                .toReviewDTO();
     }
 
-    public List<Review> findAllReviews() {
-        return reviewRepo.findAll();
+    public List<ReviewDTO> findAllReviews() {
+        return reviewRepo
+                .findAll()
+                .stream()
+                .map(Review::toReviewDTO)
+                .toList();
     }
 
-    public Review findReviewById(String id) {
+    public ReviewDTO findReviewById(String id) {
         return reviewRepo
                 .findById(id)
+                .map(Review::toReviewDTO)
                 .orElseThrow(() -> new ReviewNotFound(id));
     }
 
-    public List<Review> findReviewByUserId(String userId) {
-        return reviewRepo.findReviewByUserId(userId);
+    public List<ReviewHistoryDTO> findReviewByUserId(String userId) {
+        return reviewRepo
+                .findReviewByUserId(userId)
+                .stream()
+                .map(Review::toReviewHistoryDTO)
+                .toList();
     }
 
-    public List<Review> findReviewByFacultyId(String facultyId) {
-        return reviewRepo.findReviewByFacultyId(facultyId);
+    public List<ReviewDTO> findReviewByFacultyId(String facultyId) {
+        return reviewRepo
+                .findReviewByFacultyId(facultyId)
+                .stream()
+                .map(Review::toReviewDTO)
+                .toList();
     }
 
     public void deleteReview(String id) {
