@@ -11,21 +11,22 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 public class FacultyDTO {
-    private String id;
+    private String _id;
     private String name;
     private Double experience;
     private String photoUrl;
     private Double avgRating;
-    private Integer totalRating;
+    private Integer totalRatings;
 
     public Faculty toFaculty() {
         return Faculty
                 .builder()
+                .id(_id)
                 .name(name)
                 .experience(experience)
                 .photoUrl(photoUrl)
                 .avgRating(avgRating)
-                .totalRating(totalRating)
+                .totalRating(totalRatings)
                 .build();
     }
 }

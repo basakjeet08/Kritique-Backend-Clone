@@ -18,7 +18,7 @@ public class FacultyService {
 
     public FacultyDTO createFaculty(FacultyDTO faculty) {
         faculty.setAvgRating(0.0);
-        faculty.setTotalRating(0);
+        faculty.setTotalRatings(0);
         return facultyRepo
                 .save(faculty.toFaculty())
                 .toFacultyDTO();

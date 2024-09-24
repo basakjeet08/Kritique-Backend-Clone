@@ -52,12 +52,12 @@ public class Faculty {
     public FacultyDTO toFacultyDTO() {
         return FacultyDTO
                 .builder()
-                .id(id)
+                ._id(id)
                 .name(name)
                 .experience(experience)
                 .photoUrl(photoUrl)
                 .avgRating(avgRating)
-                .totalRating(totalRating)
+                .totalRatings(totalRating)
                 .build();
     }
 }

@@ -11,7 +11,7 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 public class FacultyReviewDTO {
-    private String id;
+    private String _id;
     private UserDTO createdBy;
     private Double rating;
     private String feedback;

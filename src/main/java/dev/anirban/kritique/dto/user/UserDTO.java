@@ -11,7 +11,7 @@ import lombok.*;
 public class UserDTO {
     private String uid;
     private String name;
-    private String anonymousName;
+    private String anon_name;
     private String email;
     private String photoUrl;
 }
