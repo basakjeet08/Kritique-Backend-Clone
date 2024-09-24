@@ -93,8 +93,8 @@ public class ReviewService {
 
         // Fetching the user who gave the review
         User user = userRepo
-                .findById(review.getCreatedBy().getId())
-                .orElseThrow(() -> new UserNotFound(review.getCreatedBy().getId()));
+                .findById(review.getCreatedBy().getUid())
+                .orElseThrow(() -> new UserNotFound(review.getCreatedBy().getUid()));
 
         // Calculating the new Review
         Double prevTotal = faculty.getAvgRating() * faculty.getReviewList().size();

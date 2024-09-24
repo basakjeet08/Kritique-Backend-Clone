@@ -18,8 +18,6 @@ import java.util.List;
 public class User {
 
     @Id
-    @GeneratedValue
-    private Integer id;
     private String uid;
     private String name;
     private String anonymousName;

@@ -12,6 +12,6 @@ public class ReviewPostRequest {
     private Integer rating;
     private String feedback;
 
-    private Integer createdById;
+    private String createdById;
     private String createdForId;
 }

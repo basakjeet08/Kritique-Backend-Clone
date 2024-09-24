@@ -36,7 +36,7 @@ public class UserController {
     }
 
     @GetMapping(UrlConstants.FIND_USER_BY_ID)
-    public CustomResponse<User> findUserByIdHandler(@PathVariable Integer id) {
+    public CustomResponse<User> findUserByIdHandler(@PathVariable String id) {
         return new CustomResponse<>(
                 HttpStatus.OK.value(),
                 "User fetched Successfully",
@@ -46,7 +46,7 @@ public class UserController {
 
 
     @DeleteMapping(UrlConstants.DELETE_USER)
-    public CustomResponse<Void> deleteUserHandler(@PathVariable Integer id) {
+    public CustomResponse<Void> deleteUserHandler(@PathVariable String id) {
         userService.deleteUser(id);
         return new CustomResponse<>(
                 HttpStatus.OK.value(),

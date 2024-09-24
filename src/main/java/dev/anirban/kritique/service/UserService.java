@@ -23,13 +23,13 @@ public class UserService {
         return userRepo.findAll();
     }
 
-    public User findUserById(Integer id) {
+    public User findUserById(String id) {
         return userRepo
                 .findById(id)
                 .orElseThrow(() -> new UserNotFound(id));
     }
 
-    public void deleteUser(Integer id) {
+    public void deleteUser(String id) {
         if (!userRepo.existsById(id))
             throw new UserNotFound(id);
 
