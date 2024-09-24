@@ -60,13 +60,6 @@ public class ReviewService {
                 .createdFor(faculty)
                 .build();
 
-
-        // Calculating the new Avg for the teacher
-        Double prevTotal = faculty.getAvgRating() * faculty.getReviewList().size();
-        Double newAvg = (prevTotal + newReview.getRating()) / (faculty.getReviewList().size() + 1);
-
-        // Updating the Faculty Avg , User reviewsGiven and faculty reviewList
-        faculty.setAvgRating(newAvg);
         user.addReview(newReview);
         faculty.addReview(newReview);
 
@@ -124,17 +117,6 @@ public class ReviewService {
                 .findById(review.getCreatedBy().getUid())
                 .orElseThrow(() -> new UserNotFound(review.getCreatedBy().getUid()));
 
-        // Calculating the new Review
-        Double prevTotal = faculty.getAvgRating() * faculty.getReviewList().size();
-
-        double newAvg = 0D;
-
-        // Checking if all the reviews are removed or not
-        if (faculty.getReviewList().size() - 1 != 0)
-            newAvg = (prevTotal - review.getRating()) / (faculty.getReviewList().size() - 1);
-
-        // Updating the Faculty Avg , User reviewsGiven and faculty reviewList
-        faculty.setAvgRating(newAvg);
         faculty.removeReview(review);
         user.removeReview(review);
 

@@ -7,6 +7,7 @@ import dev.anirban.kritique.dto.review.ReviewHistoryDTO;
 import dev.anirban.kritique.enums.Validation;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.Remove;
 import org.hibernate.annotations.UuidGenerator;
 
 @Getter
@@ -39,6 +40,11 @@ public class Review {
             fetch = FetchType.EAGER
     )
     private Faculty createdFor;
+
+    @Remove
+    public void beforeReviewRemove() {
+        createdFor.removeReview(this);
+    }
 
     public ReviewDTO toReviewDTO() {
         return ReviewDTO

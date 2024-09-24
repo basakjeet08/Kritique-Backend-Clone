@@ -37,16 +37,28 @@ public class Faculty {
 
     public void addReview(Review review) {
         if (!reviewList.contains(review)) {
+
+            // Calculating the new Avg for the teacher
+            Double prevTotal = avgRating * totalRating;
+            Double newTotal = prevTotal + review.getRating();
+            totalRating++;
+            avgRating = newTotal / totalRating;
+
             reviewList.add(review);
             review.setCreatedFor(this);
-            totalRating++;
         }
     }
 
     public void removeReview(Review review) {
-        review.setCreatedFor(null);
-        reviewList.remove(review);
+
+        // Calculating the new Avg for the teacher
+        Double prevTotal = avgRating * totalRating;
+        Double newTotal = prevTotal - review.getRating();
         totalRating--;
+        avgRating = (totalRating != 0) ? newTotal / totalRating : 0.0;
+
+        reviewList.remove(review);
+        review.setCreatedFor(null);
     }
 
     public FacultyDTO toFacultyDTO() {
