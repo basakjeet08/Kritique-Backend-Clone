@@ -30,8 +30,8 @@ public class FacultyController {
 
     @GetMapping(UrlConstants.FIND_ALL_FACULTIES)
     public CustomResponse<List<FacultyDTO>> findAllFacultiesHandler(
-            @RequestParam(value = "page", required = false) Integer page,
-            @RequestParam(value = "limit", required = false) Integer limit
+            @RequestParam(value = "page") Integer page,
+            @RequestParam(value = "limit") Integer limit
     ) {
         return new CustomResponse<>(
                 NetworkStatusCodes.SUCCESSFUL,
@@ -42,9 +42,9 @@ public class FacultyController {
 
     @GetMapping(UrlConstants.FIND_ALL_FACULTY_BY_NAME)
     public CustomResponse<List<FacultyDTO>> findAllFacultiesByNameHandler(
-            @RequestParam(value = "name", required = false) String name,
-            @RequestParam(value = "page", required = false) Integer page,
-            @RequestParam(value = "limit", required = false) Integer limit
+            @RequestParam(value = "name") String name,
+            @RequestParam(value = "page") Integer page,
+            @RequestParam(value = "limit") Integer limit
     ) {
         return new CustomResponse<>(
                 NetworkStatusCodes.SUCCESSFUL,

@@ -7,6 +7,7 @@ import dev.anirban.kritique.dto.common.EmptyObject;
 import dev.anirban.kritique.dto.user.UserDTO;
 import dev.anirban.kritique.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -28,11 +29,14 @@ public class UserController {
     }
 
     @GetMapping(UrlConstants.FIND_ALL_USERS)
-    public CustomResponse<List<UserDTO>> findAllUserHandler() {
+    public CustomResponse<List<UserDTO>> findAllUserHandler(
+            @RequestParam(value = "page") Integer page,
+            @RequestParam(value = "limit") Integer limit
+    ) {
         return new CustomResponse<>(
                 NetworkStatusCodes.SUCCESSFUL,
                 "Users fetched successfully",
-                userService.findAllUsers()
+                userService.findAllUsers(PageRequest.of(page, limit))
         );
     }
 

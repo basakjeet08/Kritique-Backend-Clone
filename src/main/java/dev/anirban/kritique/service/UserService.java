@@ -5,6 +5,7 @@ import dev.anirban.kritique.entity.User;
 import dev.anirban.kritique.exception.UserNotFound;
 import dev.anirban.kritique.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -22,9 +23,9 @@ public class UserService {
                 .toUserDTO();
     }
 
-    public List<UserDTO> findAllUsers() {
+    public List<UserDTO> findAllUsers(Pageable pageable) {
         return userRepo
-                .findAll()
+                .findAll(pageable)
                 .stream().map(User::toUserDTO)
                 .toList();
     }
