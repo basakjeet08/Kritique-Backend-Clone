@@ -1,6 +1,6 @@
 package dev.anirban.kritique.exception;
 
-import dev.anirban.kritique.dto.CustomResponse;
+import dev.anirban.kritique.dto.common.CustomResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;

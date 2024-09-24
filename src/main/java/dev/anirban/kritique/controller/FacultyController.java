@@ -1,7 +1,7 @@
 package dev.anirban.kritique.controller;
 
 import dev.anirban.kritique.constants.UrlConstants;
-import dev.anirban.kritique.dto.CustomResponse;
+import dev.anirban.kritique.dto.common.CustomResponse;
 import dev.anirban.kritique.dto.faculty.FacultyDTO;
 import dev.anirban.kritique.service.FacultyService;
 import lombok.RequiredArgsConstructor;

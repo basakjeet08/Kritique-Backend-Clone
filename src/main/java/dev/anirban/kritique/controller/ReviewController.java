@@ -1,7 +1,7 @@
 package dev.anirban.kritique.controller;
 
 import dev.anirban.kritique.constants.UrlConstants;
-import dev.anirban.kritique.dto.CustomResponse;
+import dev.anirban.kritique.dto.common.CustomResponse;
 import dev.anirban.kritique.dto.review.PostReviewRequest;
 import dev.anirban.kritique.dto.review.ReviewDTO;
 import dev.anirban.kritique.dto.review.ReviewHistoryDTO;

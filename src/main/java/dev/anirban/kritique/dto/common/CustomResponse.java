@@ -1,4 +1,4 @@
-package dev.anirban.kritique.dto;
+package dev.anirban.kritique.dto.common;
 
 
 import lombok.*;
