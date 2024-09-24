@@ -65,7 +65,7 @@ public class ReviewService {
         return reviewRepo.findAll();
     }
 
-    public Review findReviewById(Integer id) {
+    public Review findReviewById(String id) {
         return reviewRepo
                 .findById(id)
                 .orElseThrow(() -> new ReviewNotFound(id));
@@ -79,7 +79,7 @@ public class ReviewService {
         return reviewRepo.findReviewByFacultyId(facultyId);
     }
 
-    public void deleteReview(Integer id) {
+    public void deleteReview(String id) {
 
         // Fetching the review to be deleted
         Review review = reviewRepo

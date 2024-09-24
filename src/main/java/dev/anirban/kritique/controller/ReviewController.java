@@ -36,7 +36,7 @@ public class ReviewController {
     }
 
     @GetMapping(UrlConstants.FIND_REVIEW_BY_ID)
-    public CustomResponse<Review> findReviewById(@PathVariable Integer id) {
+    public CustomResponse<Review> findReviewById(@PathVariable String id) {
         return new CustomResponse<>(
                 HttpStatus.OK.value(),
                 "Review fetched successfully",
@@ -64,7 +64,7 @@ public class ReviewController {
 
 
     @DeleteMapping(UrlConstants.DELETE_REVIEW)
-    public CustomResponse<Void> deleteReviewHandler(@PathVariable Integer id) {
+    public CustomResponse<Void> deleteReviewHandler(@PathVariable String id) {
         service.deleteReview(id);
         return new CustomResponse<>(
                 HttpStatus.OK.value(),

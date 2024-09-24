@@ -2,9 +2,11 @@ package dev.anirban.kritique.entity;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import dev.anirban.kritique.dto.review.ReviewDTO;
 import dev.anirban.kritique.enums.Validation;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.UuidGenerator;
 
 @Getter
 @Setter
@@ -17,8 +19,8 @@ import lombok.*;
 public class Review {
 
     @Id
-    @GeneratedValue
-    private Integer id;
+    @UuidGenerator
+    private String id;
     private Integer rating;
     private String feedback;
     @Enumerated(value = EnumType.STRING)
@@ -37,4 +39,15 @@ public class Review {
     )
     @JsonIgnore
     private Faculty createdFor;
+
+    public ReviewDTO toReviewDTO() {
+        return ReviewDTO
+                .builder()
+                ._id(id)
+                .rating(rating)
+                .feedback(feedback)
+                .createdBy(createdBy.getUid())
+                .createdFor(createdFor.getId())
+                .build();
+    }
 }

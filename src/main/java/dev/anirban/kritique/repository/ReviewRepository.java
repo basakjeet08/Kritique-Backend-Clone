@@ -7,7 +7,7 @@ import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
-public interface ReviewRepository extends JpaRepository<Review, Integer> {
+public interface ReviewRepository extends JpaRepository<Review, String> {
 
     @Query("Select r from Review r where r.createdBy.id = :userId")
     List<Review> findReviewByUserId(@Param("userId") String userId);
