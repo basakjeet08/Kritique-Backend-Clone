@@ -15,6 +15,7 @@ import dev.anirban.kritique.repository.FacultyRepository;
 import dev.anirban.kritique.repository.ReviewRepository;
 import dev.anirban.kritique.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
@@ -69,9 +70,9 @@ public class ReviewService {
                 .toReviewDTO();
     }
 
-    public List<ReviewDTO> findAllReviews() {
+    public List<ReviewDTO> findAllReviews(Pageable pageable) {
         return reviewRepo
-                .findAll()
+                .findAll(pageable)
                 .stream()
                 .map(Review::toReviewDTO)
                 .toList();
@@ -84,17 +85,17 @@ public class ReviewService {
                 .orElseThrow(() -> new ReviewNotFound(id));
     }
 
-    public List<ReviewHistoryDTO> findReviewByUserId(String userId) {
+    public List<ReviewHistoryDTO> findReviewByUserId(String userId, Pageable pageable) {
         return reviewRepo
-                .findReviewByUserId(userId)
+                .findByCreatedBy_Uid(userId, pageable)
                 .stream()
                 .map(Review::toReviewHistoryDTO)
                 .toList();
     }
 
-    public List<ReviewFacultyDTO> findReviewByFacultyId(String facultyId) {
+    public List<ReviewFacultyDTO> findReviewByFacultyId(String facultyId, Pageable pageable) {
         return reviewRepo
-                .findReviewByFacultyId(facultyId)
+                .findByCreatedFor_Id(facultyId, pageable)
                 .stream()
                 .map(Review::toReviewFacultyDTO)
                 .toList();

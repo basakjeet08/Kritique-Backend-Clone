@@ -10,6 +10,7 @@ import dev.anirban.kritique.dto.review.ReviewDTO;
 import dev.anirban.kritique.dto.review.ReviewHistoryDTO;
 import dev.anirban.kritique.service.ReviewService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -30,11 +31,14 @@ public class ReviewController {
     }
 
     @GetMapping(UrlConstants.FIND_ALL_REVIEWS)
-    public CustomResponse<List<ReviewDTO>> findAllReviewsHandler() {
+    public CustomResponse<List<ReviewDTO>> findAllReviewsHandler(
+            @RequestParam(value = "page") Integer page,
+            @RequestParam(value = "limit") Integer limit
+    ) {
         return new CustomResponse<>(
                 NetworkStatusCodes.SUCCESSFUL,
                 "All reviews fetched successfully",
-                service.findAllReviews()
+                service.findAllReviews(PageRequest.of(page, limit))
         );
     }
 
@@ -48,20 +52,28 @@ public class ReviewController {
     }
 
     @GetMapping(UrlConstants.FIND_REVIEW_BY_USER_ID)
-    public CustomResponse<List<ReviewHistoryDTO>> findReviewByUserIdHandler(@PathVariable String userId) {
+    public CustomResponse<List<ReviewHistoryDTO>> findReviewByUserIdHandler(
+            @PathVariable String userId,
+            @RequestParam(value = "page") Integer page,
+            @RequestParam(value = "limit") Integer limit
+    ) {
         return new CustomResponse<>(
                 NetworkStatusCodes.SUCCESSFUL,
                 "Reviews fetched successfully",
-                service.findReviewByUserId(userId)
+                service.findReviewByUserId(userId, PageRequest.of(page, limit))
         );
     }
 
     @GetMapping(UrlConstants.FIND_REVIEW_BY_FACULTY_ID)
-    public CustomResponse<List<ReviewFacultyDTO>> findReviewByFacultyIdHandler(@PathVariable String facultyId) {
+    public CustomResponse<List<ReviewFacultyDTO>> findReviewByFacultyIdHandler(
+            @PathVariable String facultyId,
+            @RequestParam(value = "page") Integer page,
+            @RequestParam(value = "limit") Integer limit
+    ) {
         return new CustomResponse<>(
                 NetworkStatusCodes.SUCCESSFUL,
                 "Reviews Fetched Successfully",
-                service.findReviewByFacultyId(facultyId)
+                service.findReviewByFacultyId(facultyId, PageRequest.of(page, limit))
         );
     }
 
