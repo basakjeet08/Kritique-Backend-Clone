@@ -3,6 +3,7 @@ package dev.anirban.kritique.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.UuidGenerator;
 
 import java.util.List;
 
@@ -17,10 +18,10 @@ import java.util.List;
 public class Faculty {
 
     @Id
-    @GeneratedValue
-    private Integer id;
+    @UuidGenerator
+    private String id;
     private String name;
-    private String experience;
+    private Double experience;
     private String photoUrl;
     private Double avgRating;
     private Integer totalRating;

@@ -38,7 +38,7 @@ public class FacultyController {
     }
 
     @GetMapping(UrlConstants.FIND_FACULTY_BY_ID)
-    public CustomResponse<Faculty> findFacultyByIdHandler(@PathVariable Integer id) {
+    public CustomResponse<Faculty> findFacultyByIdHandler(@PathVariable String id) {
         return new CustomResponse<>(
                 HttpStatus.OK.value(),
                 "Faculty Details Fetched Successfully",
@@ -47,7 +47,7 @@ public class FacultyController {
     }
 
     @DeleteMapping(UrlConstants.DELETE_FACULTY)
-    public CustomResponse<Void> deleteFacultyByIdHandler(@PathVariable Integer id) {
+    public CustomResponse<Void> deleteFacultyByIdHandler(@PathVariable String id) {
         service.deleteFacultyById(id);
         return new CustomResponse<>(
                 HttpStatus.OK.value(),

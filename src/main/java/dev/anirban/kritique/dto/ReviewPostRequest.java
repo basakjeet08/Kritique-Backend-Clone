@@ -13,5 +13,5 @@ public class ReviewPostRequest {
     private String feedback;
 
     private Integer createdById;
-    private Integer createdForId;
+    private String createdForId;
 }

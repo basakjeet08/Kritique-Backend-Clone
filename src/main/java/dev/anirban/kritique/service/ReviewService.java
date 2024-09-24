@@ -75,7 +75,7 @@ public class ReviewService {
         return reviewRepo.findReviewByUserId(userId);
     }
 
-    public List<Review> findReviewByFacultyId(Integer facultyId) {
+    public List<Review> findReviewByFacultyId(String facultyId) {
         return reviewRepo.findReviewByFacultyId(facultyId);
     }
 

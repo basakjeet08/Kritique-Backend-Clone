@@ -5,6 +5,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
-public interface FacultyRepository extends JpaRepository<Faculty, Integer> {
+public interface FacultyRepository extends JpaRepository<Faculty, String> {
     List<Faculty> findByNameContaining(String name);
 }

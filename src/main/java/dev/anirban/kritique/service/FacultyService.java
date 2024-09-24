@@ -25,7 +25,7 @@ public class FacultyService {
         return facultyRepo.findAll();
     }
 
-    public Faculty findFacultyById(Integer id) {
+    public Faculty findFacultyById(String id) {
         return facultyRepo
                 .findById(id)
                 .orElseThrow(() -> new FacultyNotFound(id));
@@ -35,7 +35,7 @@ public class FacultyService {
         return facultyRepo.findByNameContaining(name);
     }
 
-    public void deleteFacultyById(Integer id) {
+    public void deleteFacultyById(String id) {
         if (!facultyRepo.existsById(id))
             throw new FacultyNotFound(id);
 
