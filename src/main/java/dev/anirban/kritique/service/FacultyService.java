@@ -16,7 +16,8 @@ public class FacultyService {
     private final FacultyRepository facultyRepo;
 
     public Faculty createFaculty(Faculty faculty) {
-        faculty.setAvgRating(0D);
+        faculty.setAvgRating(0.0);
+        faculty.setTotalRating(0);
         return facultyRepo.save(faculty);
     }
 

@@ -20,8 +20,9 @@ public class User {
     @Id
     @GeneratedValue
     private Integer id;
+    private String uid;
     private String name;
-    private String password;
+    private String anonymousName;
     private String email;
     private String photoUrl;
 

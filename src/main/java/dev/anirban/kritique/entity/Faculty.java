@@ -23,6 +23,7 @@ public class Faculty {
     private String experience;
     private String photoUrl;
     private Double avgRating;
+    private Integer totalRating;
 
     @OneToMany(
             mappedBy = "createdFor",
@@ -36,11 +37,13 @@ public class Faculty {
         if (!reviewList.contains(review)) {
             reviewList.add(review);
             review.setCreatedFor(this);
+            totalRating++;
         }
     }
 
     public void removeReview(Review review) {
         review.setCreatedFor(null);
         reviewList.remove(review);
+        totalRating--;
     }
 }
