@@ -1,5 +1,6 @@
 package dev.anirban.kritique.service;
 
+import dev.anirban.kritique.dto.review.ReviewFacultyDTO;
 import dev.anirban.kritique.dto.review.PostReviewRequest;
 import dev.anirban.kritique.dto.review.ReviewDTO;
 import dev.anirban.kritique.dto.review.ReviewHistoryDTO;
@@ -16,8 +17,10 @@ import dev.anirban.kritique.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 
 
 @Service
@@ -40,13 +43,19 @@ public class ReviewService {
                 .findById(review.getCreatedFor())
                 .orElseThrow(() -> new FacultyNotFound(review.getCreatedFor()));
 
+        // Creating the Date Format
+        Date date = new Date();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+        sdf.setTimeZone(TimeZone.getTimeZone("UTC"));
+        String formattedDate = sdf.format(date);
+
         // Building the Review Object
         Review newReview = Review
                 .builder()
                 .rating(review.getRating())
                 .feedback(review.getFeedback())
                 .status(Validation.NOT_VALIDATED)
-                .createdAt(new Date())
+                .createdAt(formattedDate)
                 .createdBy(user)
                 .createdFor(faculty)
                 .build();
@@ -90,11 +99,11 @@ public class ReviewService {
                 .toList();
     }
 
-    public List<ReviewDTO> findReviewByFacultyId(String facultyId) {
+    public List<ReviewFacultyDTO> findReviewByFacultyId(String facultyId) {
         return reviewRepo
                 .findReviewByFacultyId(facultyId)
                 .stream()
-                .map(Review::toReviewDTO)
+                .map(Review::toReviewFacultyDTO)
                 .toList();
     }
 

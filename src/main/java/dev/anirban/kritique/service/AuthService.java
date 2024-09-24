@@ -29,10 +29,12 @@ public class AuthService {
 
     public UserDTO loginUser(AccessTokenBody tokenBody) {
 
-        // Checking token is present or not
-        String token = tokenBody.getToken();
-        if (token == null || token.isEmpty() || token.isBlank())
+        // Checking authHeader is present or not
+        String authHeader = tokenBody.getToken();
+        if (authHeader == null || authHeader.isBlank() || !authHeader.startsWith("Bearer"))
             throw new TokenNotFound();
+
+        String token = authHeader.substring(7);
 
         // Fetching the firebase user
         UserRecord firebaseUser = fetchFirebaseUserFromToken(token).orElseThrow(InvalidToken::new);

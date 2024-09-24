@@ -1,5 +1,6 @@
 package dev.anirban.kritique.exception;
 
+import dev.anirban.kritique.constants.NetworkStatusCodes;
 import dev.anirban.kritique.dto.common.CustomResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,62 +19,73 @@ public class GlobalExceptionHandler {
                 null
         );
 
-        return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
 
     @ExceptionHandler(UserNotFound.class)
     public ResponseEntity<CustomResponse<Object>> handleUserNotFoundException(UserNotFound exception) {
         CustomResponse<Object> response = new CustomResponse<>(
-                HttpStatus.NOT_FOUND.value(),
+                NetworkStatusCodes.USER_NOT_FOUND,
                 exception.getMessage(),
                 null
         );
 
-        return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     @ExceptionHandler(FacultyNotFound.class)
     public ResponseEntity<CustomResponse<Object>> handleFacultyNotFoundException(FacultyNotFound exception) {
         CustomResponse<Object> response = new CustomResponse<>(
-                HttpStatus.NOT_FOUND.value(),
+                NetworkStatusCodes.FACULTY_NOT_FOUND,
                 exception.getMessage(),
                 null
         );
 
-        return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    @ExceptionHandler(ReviewNotFound.class)
+    public ResponseEntity<CustomResponse<Object>> handleFacultyNotFoundException(ReviewNotFound exception) {
+        CustomResponse<Object> response = new CustomResponse<>(
+                NetworkStatusCodes.REVIEW_NOT_FOUND,
+                exception.getMessage(),
+                null
+        );
+
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     @ExceptionHandler(InvalidToken.class)
     public ResponseEntity<CustomResponse<Object>> handleInvalidTokenException(InvalidToken exception) {
         CustomResponse<Object> response = new CustomResponse<>(
-                HttpStatus.NOT_FOUND.value(),
+                NetworkStatusCodes.INVALID_TOKEN,
                 exception.getMessage(),
                 null
         );
 
-        return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     @ExceptionHandler(TokenNotFound.class)
     public ResponseEntity<CustomResponse<Object>> handleInvalidTokenException(TokenNotFound exception) {
         CustomResponse<Object> response = new CustomResponse<>(
-                HttpStatus.NOT_FOUND.value(),
+                NetworkStatusCodes.TOKEN_REQUIRED,
                 exception.getMessage(),
                 null
         );
 
-        return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     @ExceptionHandler(KIITEmailNotFound.class)
     public ResponseEntity<CustomResponse<Object>> handleInvalidTokenException(KIITEmailNotFound exception) {
         CustomResponse<Object> response = new CustomResponse<>(
-                HttpStatus.NOT_FOUND.value(),
+                NetworkStatusCodes.EMAIL_NOT_ALLOWED,
                 exception.getMessage(),
                 null
         );
 
-        return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 }

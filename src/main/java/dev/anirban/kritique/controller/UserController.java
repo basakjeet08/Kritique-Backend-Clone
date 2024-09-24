@@ -1,15 +1,16 @@
 package dev.anirban.kritique.controller;
 
-
+import dev.anirban.kritique.constants.NetworkStatusCodes;
 import dev.anirban.kritique.constants.UrlConstants;
 import dev.anirban.kritique.dto.common.CustomResponse;
+import dev.anirban.kritique.dto.common.EmptyObject;
 import dev.anirban.kritique.dto.user.UserDTO;
 import dev.anirban.kritique.service.UserService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+
 
 @RestController
 @RequiredArgsConstructor
@@ -20,7 +21,7 @@ public class UserController {
     @PostMapping(UrlConstants.CREATE_USER)
     public CustomResponse<UserDTO> createUserHandler(@RequestBody UserDTO user) {
         return new CustomResponse<>(
-                HttpStatus.CREATED.value(),
+                NetworkStatusCodes.CREATED,
                 "User Created Successfully",
                 userService.createUser(user)
         );
@@ -29,7 +30,7 @@ public class UserController {
     @GetMapping(UrlConstants.FIND_ALL_USERS)
     public CustomResponse<List<UserDTO>> findAllUserHandler() {
         return new CustomResponse<>(
-                HttpStatus.OK.value(),
+                NetworkStatusCodes.SUCCESSFUL,
                 "Users fetched successfully",
                 userService.findAllUsers()
         );
@@ -38,7 +39,7 @@ public class UserController {
     @GetMapping(UrlConstants.FIND_USER_BY_ID)
     public CustomResponse<UserDTO> findUserByIdHandler(@PathVariable String id) {
         return new CustomResponse<>(
-                HttpStatus.OK.value(),
+                NetworkStatusCodes.SUCCESSFUL,
                 "User fetched Successfully",
                 userService.findUserById(id)
         );
@@ -46,12 +47,12 @@ public class UserController {
 
 
     @DeleteMapping(UrlConstants.DELETE_USER)
-    public CustomResponse<Void> deleteUserHandler(@PathVariable String id) {
+    public CustomResponse<EmptyObject> deleteUserHandler(@PathVariable String id) {
         userService.deleteUser(id);
         return new CustomResponse<>(
-                HttpStatus.OK.value(),
+                NetworkStatusCodes.DELETED,
                 "User Deleted Successfully",
-                null
+                new EmptyObject()
         );
     }
 }

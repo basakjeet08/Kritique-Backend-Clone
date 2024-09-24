@@ -1,13 +1,15 @@
 package dev.anirban.kritique.controller;
 
+import dev.anirban.kritique.constants.NetworkStatusCodes;
 import dev.anirban.kritique.constants.UrlConstants;
 import dev.anirban.kritique.dto.common.CustomResponse;
+import dev.anirban.kritique.dto.common.EmptyObject;
+import dev.anirban.kritique.dto.review.ReviewFacultyDTO;
 import dev.anirban.kritique.dto.review.PostReviewRequest;
 import dev.anirban.kritique.dto.review.ReviewDTO;
 import dev.anirban.kritique.dto.review.ReviewHistoryDTO;
 import dev.anirban.kritique.service.ReviewService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -21,7 +23,7 @@ public class ReviewController {
     @PostMapping(UrlConstants.CREATE_REVIEWS)
     public CustomResponse<ReviewDTO> createReviewHandler(@RequestBody PostReviewRequest review) {
         return new CustomResponse<>(
-                HttpStatus.CREATED.value(),
+                NetworkStatusCodes.CREATED,
                 "Review Created successfully",
                 service.createReview(review)
         );
@@ -30,7 +32,7 @@ public class ReviewController {
     @GetMapping(UrlConstants.FIND_ALL_REVIEWS)
     public CustomResponse<List<ReviewDTO>> findAllReviewsHandler() {
         return new CustomResponse<>(
-                HttpStatus.OK.value(),
+                NetworkStatusCodes.SUCCESSFUL,
                 "All reviews fetched successfully",
                 service.findAllReviews()
         );
@@ -39,7 +41,7 @@ public class ReviewController {
     @GetMapping(UrlConstants.FIND_REVIEW_BY_ID)
     public CustomResponse<ReviewDTO> findReviewById(@PathVariable String id) {
         return new CustomResponse<>(
-                HttpStatus.OK.value(),
+                NetworkStatusCodes.SUCCESSFUL,
                 "Review fetched successfully",
                 service.findReviewById(id)
         );
@@ -48,16 +50,16 @@ public class ReviewController {
     @GetMapping(UrlConstants.FIND_REVIEW_BY_USER_ID)
     public CustomResponse<List<ReviewHistoryDTO>> findReviewByUserIdHandler(@PathVariable String userId) {
         return new CustomResponse<>(
-                HttpStatus.OK.value(),
+                NetworkStatusCodes.SUCCESSFUL,
                 "Reviews fetched successfully",
                 service.findReviewByUserId(userId)
         );
     }
 
     @GetMapping(UrlConstants.FIND_REVIEW_BY_FACULTY_ID)
-    public CustomResponse<List<ReviewDTO>> findReviewByFacultyIdHandler(@PathVariable String facultyId) {
+    public CustomResponse<List<ReviewFacultyDTO>> findReviewByFacultyIdHandler(@PathVariable String facultyId) {
         return new CustomResponse<>(
-                HttpStatus.OK.value(),
+                NetworkStatusCodes.SUCCESSFUL,
                 "Reviews Fetched Successfully",
                 service.findReviewByFacultyId(facultyId)
         );
@@ -65,12 +67,12 @@ public class ReviewController {
 
 
     @DeleteMapping(UrlConstants.DELETE_REVIEW)
-    public CustomResponse<Void> deleteReviewHandler(@PathVariable String id) {
+    public CustomResponse<EmptyObject> deleteReviewHandler(@PathVariable String id) {
         service.deleteReview(id);
         return new CustomResponse<>(
-                HttpStatus.OK.value(),
+                NetworkStatusCodes.DELETED,
                 "Review Deleted Successfully",
-                null
+                new EmptyObject()
         );
     }
 }

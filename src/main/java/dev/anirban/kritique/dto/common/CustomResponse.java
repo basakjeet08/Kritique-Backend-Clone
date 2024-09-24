@@ -10,7 +10,7 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CustomResponse<T> {
-    private Integer code;
+    private Integer status;
     private String message;
     private T data;
 }
