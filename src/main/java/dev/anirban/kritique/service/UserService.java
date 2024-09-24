@@ -1,6 +1,6 @@
 package dev.anirban.kritique.service;
 
-
+import dev.anirban.kritique.dto.user.UserDTO;
 import dev.anirban.kritique.entity.User;
 import dev.anirban.kritique.exception.UserNotFound;
 import dev.anirban.kritique.repository.UserRepository;
@@ -9,23 +9,30 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+
 @Service
 @RequiredArgsConstructor
 public class UserService {
 
     private final UserRepository userRepo;
 
-    public User createUser(User user) {
-        return userRepo.save(user);
+    public UserDTO createUser(UserDTO user) {
+        return userRepo
+                .save(user.toUser())
+                .toUserDTO();
     }
 
-    public List<User> findAllUsers() {
-        return userRepo.findAll();
+    public List<UserDTO> findAllUsers() {
+        return userRepo
+                .findAll()
+                .stream().map(User::toUserDTO)
+                .toList();
     }
 
-    public User findUserById(String id) {
+    public UserDTO findUserById(String id) {
         return userRepo
                 .findById(id)
+                .map(User::toUserDTO)
                 .orElseThrow(() -> new UserNotFound(id));
     }
 

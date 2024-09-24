@@ -45,7 +45,7 @@ public class ReviewController {
     }
 
     @GetMapping(UrlConstants.FIND_REVIEW_BY_USER_ID)
-    public CustomResponse<List<Review>> findReviewByUserIdHandler(@PathVariable Integer userId) {
+    public CustomResponse<List<Review>> findReviewByUserIdHandler(@PathVariable String userId) {
         return new CustomResponse<>(
                 HttpStatus.OK.value(),
                 "Reviews fetched successfully",

@@ -71,7 +71,7 @@ public class ReviewService {
                 .orElseThrow(() -> new ReviewNotFound(id));
     }
 
-    public List<Review> findReviewByUserId(Integer userId) {
+    public List<Review> findReviewByUserId(String userId) {
         return reviewRepo.findReviewByUserId(userId);
     }
 

@@ -1,6 +1,7 @@
 package dev.anirban.kritique.entity;
 
 
+import dev.anirban.kritique.dto.user.UserDTO;
 import dev.anirban.kritique.enums.Role;
 import jakarta.persistence.*;
 import lombok.*;
@@ -45,5 +46,16 @@ public class User {
     public void removeReview(Review review) {
         review.setCreatedBy(null);
         reviewsGiven.remove(review);
+    }
+
+    public UserDTO toUserDTO() {
+        return UserDTO
+                .builder()
+                .uid(uid)
+                .name(name)
+                .anon_name(anonymousName)
+                .email(email)
+                .photoUrl(photoUrl)
+                .build();
     }
 }

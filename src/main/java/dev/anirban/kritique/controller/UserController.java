@@ -3,7 +3,7 @@ package dev.anirban.kritique.controller;
 
 import dev.anirban.kritique.constants.UrlConstants;
 import dev.anirban.kritique.dto.CustomResponse;
-import dev.anirban.kritique.entity.User;
+import dev.anirban.kritique.dto.user.UserDTO;
 import dev.anirban.kritique.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -18,7 +18,7 @@ public class UserController {
     private final UserService userService;
 
     @PostMapping(UrlConstants.CREATE_USER)
-    public CustomResponse<User> createUserHandler(@RequestBody User user) {
+    public CustomResponse<UserDTO> createUserHandler(@RequestBody UserDTO user) {
         return new CustomResponse<>(
                 HttpStatus.CREATED.value(),
                 "User Created Successfully",
@@ -27,7 +27,7 @@ public class UserController {
     }
 
     @GetMapping(UrlConstants.FIND_ALL_USERS)
-    public CustomResponse<List<User>> findAllUserHandler() {
+    public CustomResponse<List<UserDTO>> findAllUserHandler() {
         return new CustomResponse<>(
                 HttpStatus.OK.value(),
                 "Users fetched successfully",
@@ -36,7 +36,7 @@ public class UserController {
     }
 
     @GetMapping(UrlConstants.FIND_USER_BY_ID)
-    public CustomResponse<User> findUserByIdHandler(@PathVariable String id) {
+    public CustomResponse<UserDTO> findUserByIdHandler(@PathVariable String id) {
         return new CustomResponse<>(
                 HttpStatus.OK.value(),
                 "User fetched Successfully",
