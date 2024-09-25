@@ -11,6 +11,7 @@ import dev.anirban.kritique.dto.review.ReviewHistoryDTO;
 import dev.anirban.kritique.service.ReviewService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -60,7 +61,7 @@ public class ReviewController {
         return new CustomResponse<>(
                 NetworkStatusCodes.SUCCESSFUL,
                 "Reviews fetched successfully",
-                service.findReviewByUserId(userId, PageRequest.of(page, limit))
+                service.findReviewByUserId(userId, PageRequest.of(page, limit, Sort.Direction.DESC, "createdAt"))
         );
     }
 
@@ -73,7 +74,7 @@ public class ReviewController {
         return new CustomResponse<>(
                 NetworkStatusCodes.SUCCESSFUL,
                 "Reviews Fetched Successfully",
-                service.findReviewByFacultyId(facultyId, PageRequest.of(page, limit))
+                service.findReviewByFacultyId(facultyId, PageRequest.of(page, limit, Sort.Direction.DESC, "createdAt"))
         );
     }
 

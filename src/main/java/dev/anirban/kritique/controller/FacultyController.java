@@ -8,6 +8,7 @@ import dev.anirban.kritique.dto.faculty.FacultyDTO;
 import dev.anirban.kritique.service.FacultyService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -36,7 +37,7 @@ public class FacultyController {
         return new CustomResponse<>(
                 NetworkStatusCodes.SUCCESSFUL,
                 "Faculty Fetched Successfully",
-                service.findAllFaculty(PageRequest.of(page, limit))
+                service.findAllFaculty(PageRequest.of(page, limit, Sort.Direction.ASC, "name"))
         );
     }
 
@@ -49,7 +50,7 @@ public class FacultyController {
         return new CustomResponse<>(
                 NetworkStatusCodes.SUCCESSFUL,
                 "Faculty Fetched Successfully",
-                service.findFacultyByName(name, PageRequest.of(page, limit))
+                service.findFacultyByName(name, PageRequest.of(page, limit, Sort.Direction.ASC, "name"))
         );
     }
 
