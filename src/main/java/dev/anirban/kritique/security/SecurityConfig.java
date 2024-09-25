@@ -18,6 +18,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class SecurityConfig {
 
     private final FirebaseTokenFilter firebaseTokenFilter;
+    private final VersionHeaderFilter versionHeaderFilter;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -30,6 +31,7 @@ public class SecurityConfig {
                 )
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .addFilterBefore(firebaseTokenFilter, UsernamePasswordAuthenticationFilter.class)
+                .addFilterBefore(versionHeaderFilter, FirebaseTokenFilter.class)
                 .build();
     }
 }

@@ -22,5 +22,5 @@ public class NetworkStatusCodes {
     public final static Integer INVALID_TOKEN = 402;
     public final static Integer UNAUTHORIZED = 403;
     public final static Integer INTERNAL_SERVER_ERROR = 404;
-    public final static Integer INVALID_EMAIL = 405;
+    public final static Integer VERSION_MISMATCH = 405;
 }

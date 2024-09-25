@@ -46,7 +46,7 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(ReviewNotFound.class)
-    public ResponseEntity<CustomResponse<Object>> handleFacultyNotFoundException(ReviewNotFound exception) {
+    public ResponseEntity<CustomResponse<Object>> handleReviewNotFoundException(ReviewNotFound exception) {
         CustomResponse<Object> response = new CustomResponse<>(
                 NetworkStatusCodes.REVIEW_NOT_FOUND,
                 exception.getMessage(),
@@ -68,7 +68,7 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(TokenNotFound.class)
-    public ResponseEntity<CustomResponse<Object>> handleInvalidTokenException(TokenNotFound exception) {
+    public ResponseEntity<CustomResponse<Object>> handleTokenNotFoundException(TokenNotFound exception) {
         CustomResponse<Object> response = new CustomResponse<>(
                 NetworkStatusCodes.TOKEN_REQUIRED,
                 exception.getMessage(),
@@ -79,7 +79,7 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(KIITEmailNotFound.class)
-    public ResponseEntity<CustomResponse<Object>> handleInvalidTokenException(KIITEmailNotFound exception) {
+    public ResponseEntity<CustomResponse<Object>> handleInvalidEmailException(KIITEmailNotFound exception) {
         CustomResponse<Object> response = new CustomResponse<>(
                 NetworkStatusCodes.EMAIL_NOT_ALLOWED,
                 exception.getMessage(),
@@ -90,7 +90,7 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(ProfanityFoundException.class)
-    public ResponseEntity<CustomResponse<Object>> handleInvalidTokenException(ProfanityFoundException exception) {
+    public ResponseEntity<CustomResponse<Object>> handleProfanityException(ProfanityFoundException exception) {
         CustomResponse<Object> response = new CustomResponse<>(
                 NetworkStatusCodes.PROFANITY_DETECTED,
                 exception.getMessage(),
@@ -101,7 +101,7 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(ReviewAlreadyExistsException.class)
-    public ResponseEntity<CustomResponse<Object>> handleInvalidTokenException(ReviewAlreadyExistsException exception) {
+    public ResponseEntity<CustomResponse<Object>> handleReviewAlreadyExistsException(ReviewAlreadyExistsException exception) {
         CustomResponse<Object> response = new CustomResponse<>(
                 NetworkStatusCodes.ALREADY_REVIEWED,
                 exception.getMessage(),
