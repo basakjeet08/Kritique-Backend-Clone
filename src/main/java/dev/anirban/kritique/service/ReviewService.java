@@ -9,6 +9,7 @@ import dev.anirban.kritique.entity.Review;
 import dev.anirban.kritique.entity.User;
 import dev.anirban.kritique.enums.Validation;
 import dev.anirban.kritique.exception.FacultyNotFound;
+import dev.anirban.kritique.exception.ProfanityFoundException;
 import dev.anirban.kritique.exception.ReviewNotFound;
 import dev.anirban.kritique.exception.UserNotFound;
 import dev.anirban.kritique.repository.FacultyRepository;
@@ -31,8 +32,13 @@ public class ReviewService {
     private final UserRepository userRepo;
     private final FacultyRepository facultyRepo;
     private final ReviewRepository reviewRepo;
+    private final ProfanityService profanityService;
 
     public ReviewDTO createReview(PostReviewRequest review) {
+
+        // Checking if the given review contains bad words or not.
+        if (profanityService.containsProfanity(review.getFeedback()))
+            throw new ProfanityFoundException();
 
         // Fetching user who created the Review
         User user = userRepo

@@ -88,4 +88,15 @@ public class GlobalExceptionHandler {
 
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
+
+    @ExceptionHandler(ProfanityFoundException.class)
+    public ResponseEntity<CustomResponse<Object>> handleInvalidTokenException(ProfanityFoundException exception) {
+        CustomResponse<Object> response = new CustomResponse<>(
+                NetworkStatusCodes.PROFANITY_DETECTED,
+                exception.getMessage(),
+                null
+        );
+
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
 }
