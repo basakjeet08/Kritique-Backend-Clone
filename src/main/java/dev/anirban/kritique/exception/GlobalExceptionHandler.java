@@ -56,17 +56,6 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
-    @ExceptionHandler(InvalidToken.class)
-    public ResponseEntity<CustomResponse<Object>> handleInvalidTokenException(InvalidToken exception) {
-        CustomResponse<Object> response = new CustomResponse<>(
-                NetworkStatusCodes.INVALID_TOKEN,
-                exception.getMessage(),
-                null
-        );
-
-        return new ResponseEntity<>(response, HttpStatus.OK);
-    }
-
     @ExceptionHandler(TokenNotFound.class)
     public ResponseEntity<CustomResponse<Object>> handleTokenNotFoundException(TokenNotFound exception) {
         CustomResponse<Object> response = new CustomResponse<>(

@@ -32,7 +32,7 @@ public class VersionHeaderFilter extends OncePerRequestFilter {
 
         final String versionHeader = request.getHeader("Version");
 
-        if (!versionHeader.equals(VersionConstant.APP_VERSION)) {
+        if (versionHeader == null || !versionHeader.equals(VersionConstant.APP_VERSION)) {
             writeJsonResponse(response);
             return;
         }

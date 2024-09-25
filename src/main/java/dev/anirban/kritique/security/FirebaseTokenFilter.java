@@ -1,8 +1,11 @@
 package dev.anirban.kritique.security;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.auth.FirebaseToken;
+import dev.anirban.kritique.constants.NetworkStatusCodes;
+import dev.anirban.kritique.dto.common.CustomResponse;
 import dev.anirban.kritique.exception.InvalidToken;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -21,6 +24,8 @@ import java.util.Optional;
 @Component
 @Log4j2
 public class FirebaseTokenFilter extends OncePerRequestFilter {
+
+    private final ObjectMapper objectMapper = new ObjectMapper();
 
     @Override
     protected void doFilterInternal(
@@ -41,8 +46,14 @@ public class FirebaseTokenFilter extends OncePerRequestFilter {
         // Fetching the JWT Token from the Header ignoring the "Bearer " Text.
         String token = authHeader.substring(7);
 
-        FirebaseAuthenticationToken authentication = createAuthTokenWrapper(token).orElseThrow(InvalidToken::new);
-        SecurityContextHolder.getContext().setAuthentication(authentication);
+        Optional<FirebaseAuthenticationToken> optionalAuthentication = createAuthTokenWrapper(token);
+
+        if (optionalAuthentication.isEmpty()) {
+            invalidTokenResponse(response);
+            return;
+        }
+
+        SecurityContextHolder.getContext().setAuthentication(optionalAuthentication.get());
 
         // Continue the request after successful token verification
         filterChain.doFilter(request, response);
@@ -62,5 +73,16 @@ public class FirebaseTokenFilter extends OncePerRequestFilter {
             log.error(e);
             return Optional.empty();
         }
+    }
+
+    private void invalidTokenResponse(HttpServletResponse response) throws IOException {
+        CustomResponse<Object> customResponse = new CustomResponse<>(
+                NetworkStatusCodes.INVALID_TOKEN,
+                new InvalidToken().getMessage(),
+                null
+        );
+
+        // Writing the Json Response
+        response.getWriter().write(objectMapper.writeValueAsString(customResponse));
     }
 }
