@@ -26,6 +26,7 @@ import java.util.Optional;
 public class AuthService {
 
     private final UserRepository userRepo;
+    private final RandomNameGenerator randomNameGenerator;
 
     public UserDTO loginUser(AccessTokenBody tokenBody) {
 
@@ -84,7 +85,7 @@ public class AuthService {
                 .builder()
                 .uid(firebaseUser.getUid())
                 .name(firebaseUser.getDisplayName())
-                .anonymousName("Random Name")
+                .anonymousName(randomNameGenerator.generateRandomName())
                 .email(firebaseUser.getEmail())
                 .photoUrl(firebaseUser.getPhotoUrl())
                 .role(Role.USER)
