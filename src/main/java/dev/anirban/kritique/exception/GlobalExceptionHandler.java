@@ -99,4 +99,15 @@ public class GlobalExceptionHandler {
 
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
+
+    @ExceptionHandler(ReviewAlreadyExistsException.class)
+    public ResponseEntity<CustomResponse<Object>> handleInvalidTokenException(ReviewAlreadyExistsException exception) {
+        CustomResponse<Object> response = new CustomResponse<>(
+                NetworkStatusCodes.ALREADY_REVIEWED,
+                exception.getMessage(),
+                null
+        );
+
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
 }

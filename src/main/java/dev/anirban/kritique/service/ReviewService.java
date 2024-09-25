@@ -8,10 +8,7 @@ import dev.anirban.kritique.entity.Faculty;
 import dev.anirban.kritique.entity.Review;
 import dev.anirban.kritique.entity.User;
 import dev.anirban.kritique.enums.Validation;
-import dev.anirban.kritique.exception.FacultyNotFound;
-import dev.anirban.kritique.exception.ProfanityFoundException;
-import dev.anirban.kritique.exception.ReviewNotFound;
-import dev.anirban.kritique.exception.UserNotFound;
+import dev.anirban.kritique.exception.*;
 import dev.anirban.kritique.repository.FacultyRepository;
 import dev.anirban.kritique.repository.ReviewRepository;
 import dev.anirban.kritique.repository.UserRepository;
@@ -36,10 +33,6 @@ public class ReviewService {
 
     public ReviewDTO createReview(PostReviewRequest review) {
 
-        // Checking if the given review contains bad words or not.
-        if (profanityService.containsProfanity(review.getFeedback()))
-            throw new ProfanityFoundException();
-
         // Fetching user who created the Review
         User user = userRepo
                 .findById(review.getCreatedBy())
@@ -50,11 +43,19 @@ public class ReviewService {
                 .findById(review.getCreatedFor())
                 .orElseThrow(() -> new FacultyNotFound(review.getCreatedFor()));
 
+        // Check if the user has already reviewed this faculty
+        if (checkIfAlreadyReviewed(user, faculty))
+            throw new ReviewAlreadyExistsException();
+
+
+        // Checking if the given review contains bad words or not.
+        if (profanityService.containsProfanity(review.getFeedback()))
+            throw new ProfanityFoundException();
+
+
         // Creating the Date Format
-        Date date = new Date();
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
-        sdf.setTimeZone(TimeZone.getTimeZone("UTC"));
-        String formattedDate = sdf.format(date);
+        String formattedDate = createFormatterDate();
+
 
         // Building the Review Object
         Review newReview = Review
@@ -74,6 +75,25 @@ public class ReviewService {
         return reviewRepo
                 .save(newReview)
                 .toReviewDTO();
+    }
+
+    private String createFormatterDate() {
+        Date date = new Date();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+        sdf.setTimeZone(TimeZone.getTimeZone("UTC"));
+        return sdf.format(date);
+    }
+
+    private boolean checkIfAlreadyReviewed(User user, Faculty faculty) {
+        return user
+                .getReviewsGiven()
+                .stream()
+                .anyMatch(existingReview ->
+                        existingReview
+                                .getCreatedFor()
+                                .getId()
+                                .equals(faculty.getId())
+                );
     }
 
     public List<ReviewDTO> findAllReviews(Pageable pageable) {
