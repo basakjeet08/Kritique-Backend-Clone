@@ -67,6 +67,17 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
+    @ExceptionHandler(InvalidToken.class)
+    public ResponseEntity<CustomResponse<Object>> handleInvalidTokenException(InvalidToken exception) {
+        CustomResponse<Object> response = new CustomResponse<>(
+                NetworkStatusCodes.INVALID_TOKEN,
+                exception.getMessage(),
+                null
+        );
+
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
     @ExceptionHandler(KIITEmailNotFound.class)
     public ResponseEntity<CustomResponse<Object>> handleInvalidEmailException(KIITEmailNotFound exception) {
         CustomResponse<Object> response = new CustomResponse<>(
